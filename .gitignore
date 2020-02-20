@@ -1,0 +1,5 @@
+.idea
+venv
+.env
+*.json
+get_emails.py
