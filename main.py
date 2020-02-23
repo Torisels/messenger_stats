@@ -6,18 +6,31 @@ import re
 from helpers import parse_obj
 from stats import messenger_stats
 
-MESSAGES_PATH = "message_1.json"
+MESSAGES_PATH_2 = "message_2.json"
+MESSAGES_PATH_1 = "message_1.json"
 
-with open(MESSAGES_PATH) as f:
-    data = json.load(f, object_hook=parse_obj)
+with open(MESSAGES_PATH_1) as f:
+    data1 = json.load(f, object_hook=parse_obj)
 
-sttt = json.dumps(data)
+with open(MESSAGES_PATH_2) as f:
+    data2 = json.load(f, object_hook=parse_obj)
+# sttt = json.dumps(data)
+#
+# with open("good_json.json", "w") as f:
+#     f.write(sttt)
 
-with open("good_json.json", "w") as f:
-    f.write(sttt)
+
+participants = data1["participants"]
+
+participants = [p["name"] for p in participants]
+
+data = data1["messages"] + data2["messages"]
+
+print(len(data))
 
 
-stats = messenger_stats.MessengerStats(data)
+
+stats = messenger_stats.MessengerStats(data, participants)
 stats.run()
 
 
